@@ -39,6 +39,7 @@ public:
       char c = getch();
       auto msg = geometry_msgs::msg::Twist();
       bool isValidKey = false;
+      std::string inputName = "";
 
       if (c == '\x1B')
       {
@@ -50,13 +51,13 @@ public:
           switch(seq2)
           {
             case 'A':
-              msg.linear.x = 5.0; isValidKey = true; break;
+              msg.linear.x = 5.0; isValidKey = true; inputName = "Panah Atas"; break;
             case 'B':
-              msg.linear.x = -5.0; isValidKey = true; break;
+              msg.linear.x = -5.0; isValidKey = true; inputName = "Panah Bawah"; break;
             case 'C':
-              msg.linear.y = -5.0; isValidKey = true; break;
+              msg.linear.y = -5.0; isValidKey = true; inputName = "Panah Kanan"; break;
             case 'D':
-              msg.linear.y = 5.0; isValidKey = true; break;
+              msg.linear.y = 5.0; isValidKey = true; inputName = "Panah Kiri"; break;
           }
         }
       } 
@@ -66,11 +67,13 @@ public:
         {
           msg.angular.z = -1.0; 
           isValidKey = true;
+          inputName = "Tombol R (Rotasi Kanan)";
         } 
         else if (c == 'l' || c == 'L')
         {
           msg.angular.z = 1.0;  
           isValidKey = true;
+          inputName = "Tombol L (Rotasi Kiri)";
         } 
         else if (c == 'b' || c == 'B')
         { 
@@ -78,6 +81,7 @@ public:
           msg.linear.y = 0.0;
           msg.angular.z = 0.0;
           isValidKey = true;
+          inputName = "Tombol B (Rem/Berhenti)";
         }
         else if (c == '\x03')
         {
@@ -87,6 +91,8 @@ public:
 
       if (isValidKey)
       {
+        RCLCPP_INFO(this->get_logger(), "Input: [%s] -> Publish: linear(x: %.1f, y: %.1f) angular(z: %.1f)", 
+                    inputName.c_str(), msg.linear.x, msg.linear.y, msg.angular.z);
         drivePublisher->publish(msg);
       }
     }
