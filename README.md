@@ -20,3 +20,38 @@ graph TD
     C -->|/power_destroyer| D[move_destroyer]
     C -->|/move_type| D
 ```
+
+## Dependencies
+Pastikan pada environment/komputer sudah terinstall:
+* Linux (Ubuntu 22.04)
+* ROS 2 Humble
+* Compiler C++ (g++/gcc)
+* Package ROS:
+  * `rclcpp`
+  * `geometry_msgs`
+  * `std_msgs`
+* `rmw_cyclonedds_cpp` (untuk penggunaan lintas komputer dalam satu network)
+
+## Cara Menjalankan Program
+1. Buka terminal pada root package ini, lalu build dengan menggunakan `colcon build`.
+2. Lakukan `source install/setup.bash` supaya file dikenali untuk setiap terminal yang dibuka.
+
+### Opsi 1: Jalankan secara manual
+3. Terminal 1: 
+```bash
+  ros2 run destroyer move_destroyer
+  ```
+4. Terminal 2:
+```bash
+  ros2 run destroyer check_move_destroyer
+  ```
+5. Terminal 3:
+```bash
+  ros2 run destroyer drive_mode_destroyer
+  ```
+
+## Opsi 2: Jalankan secara otomatis
+3. Buka terminal,
+```bash
+ros2 launch destroyer switch_on.launch.py
+```
