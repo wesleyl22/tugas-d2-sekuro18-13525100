@@ -33,8 +33,8 @@ Pastikan pada environment/komputer sudah terinstall:
 * `rmw_cyclonedds_cpp` (untuk penggunaan lintas komputer dalam satu network)
 
 ## Cara Menjalankan Program
-1. Buka terminal pada root package ini, lalu build dengan menggunakan `colcon build`.
-2. Lakukan `source install/setup.bash` supaya file dikenali untuk setiap terminal yang dibuka.
+1. Buka terminal pada root package ini, lalu build dengan menggunakan ```bash colcon build```.
+2. Lakukan ```bash source install/setup.bash``` supaya file dikenali untuk **setiap terminal** yang dibuka.
 
 ### Opsi 1: Jalankan secara manual
 3. Terminal 1: 
