@@ -55,3 +55,6 @@ Pastikan pada environment/komputer sudah terinstall:
 ```bash
 ros2 launch destroyer switch_on.launch.py
 ```
+
+## Video Penjelasan Singkat
+https://youtu.be/a-A2YaB4TO4
