@@ -16,6 +16,13 @@ public:
   }
 
 private:
+  std::string getWheelDirection(double velocity)
+  {
+    if (velocity > 0.0) return "maju";
+    else if (velocity < 0.0) return "mundur";
+    return "diam";
+  }
+
   void powerCallback(const geometry_msgs::msg::Twist::SharedPtr msg)
   {
     std::string moveStr = "";
@@ -30,10 +37,24 @@ private:
     else if (msg->angular.z < 0.0) moveStr += "Berputar Kanan";
 
     if (moveStr.empty()) moveStr = "Diam";
-
     if (moveStr.back() == ' ') moveStr.pop_back();
 
     RCLCPP_INFO(this->get_logger(), "Orientasi Gerak: %s", moveStr.c_str());
+
+    double x = msg->linear.x;
+    double y = msg->linear.y;
+    double z = msg->angular.z;
+
+    double fl = x - y - z;
+    double fr = x + y + z;
+    double bl = x + y - z;
+    double br = x - y + z;
+
+    RCLCPP_INFO(this->get_logger(), "FL: %s", getWheelDirection(fl).c_str());
+    RCLCPP_INFO(this->get_logger(), "FR: %s", getWheelDirection(fr).c_str());
+    RCLCPP_INFO(this->get_logger(), "BL: %s", getWheelDirection(bl).c_str());
+    RCLCPP_INFO(this->get_logger(), "BR: %s", getWheelDirection(br).c_str());
+    RCLCPP_INFO(this->get_logger(), "-----------------------------------");
   }
 
   void moveTypeCallback(const std_msgs::msg::String::SharedPtr msg)
